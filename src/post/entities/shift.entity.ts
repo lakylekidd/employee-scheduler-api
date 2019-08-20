@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from 'typeorm';
+import { ShiftGroup } from './shift-group.entity';
 
 /**
  * The shift is a placeholder of a position that needs to be filled by an employee.
@@ -26,4 +27,9 @@ export class Shift {
      */
 	@Column({ type: 'int' })
 	public readonly endPosition: number;
+	/**
+	 * The group the current shift belongs to
+	 */
+	@ManyToOne((type) => ShiftGroup, (group) => group.shifts)
+	public readonly group: ShiftGroup;
 }
